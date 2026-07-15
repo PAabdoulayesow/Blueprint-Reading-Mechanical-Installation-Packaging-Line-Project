@@ -30,9 +30,11 @@ version of the work and methodology.*
 | `mechanical-installation-procedure.md` | Installation/alignment procedure and blueprint-reading approach for a multi-station line |
 | `grafcet-sequence-logic.md` | Sequential control logic governing station operation and interlocks |
 | `technical-specification.md` | Full technical specification: functional block diagram, mechanical/electrical schematics, constants |
+| `amdec-fmea-analysis.md` | Failure Mode, Effects & Criticality Analysis (AMDEC/FMEA) driving maintenance priorities |
 
 ## Skills demonstrated
 - Blueprint/schematic reading and interpretation
 - Mechanical equipment installation and alignment principles
 - Sequential/interlocked control logic (GRAFCET)
+- Failure Mode, Effects & Criticality Analysis (AMDEC/FMEA)
 - Documentation practices for multi-station mechanical systems
