@@ -1,0 +1,84 @@
+# Technical Specification
+## Multi-Station Packaging Line — Mechanical Installation
+
+## 1. Purpose & Scope
+Define the functional, mechanical, and electrical requirements for
+installing and commissioning a multi-station packaging line: mechanical
+installation/alignment through to sequenced, interlocked operation —
+representative of packaging/production lines in food processing plants.
+
+## 2. Functional Block Diagram
+```mermaid
+flowchart LR
+    IN[Incoming Product] --> S1[Station 1: Load]
+    S1 --> S2[Station 2: Transfer/Pack]
+    S2 --> S3[Station 3: Seal]
+    S3 --> OUT[Outgoing Packaged Product]
+    CTRL[PLC / Sequence Controller] -->|Step Commands| S1
+    CTRL -->|Step Commands| S2
+    CTRL -->|Step Commands| S3
+    S1 -->|Sensor Feedback| CTRL
+    S2 -->|Sensor Feedback| CTRL
+    S3 -->|Sensor Feedback| CTRL
+    ESTOP[E-Stop / Safety Circuit] -->|Hardwired| S1
+    ESTOP -->|Hardwired| S2
+    ESTOP -->|Hardwired| S3
+```
+
+## 3. Electrical Schematic — Control Circuit Overview
+```
+Control Voltage (24VDC):
+  PLC DO (Station Step Cmd)  -----> Station Actuator (pneumatic/electric)
+  Station Sensor (Present)   -----> PLC DI (Step confirmation)
+  Station Sensor (Fault)     -----> PLC DI (Fault detection)
+  E-Stop chain               -----> Hardwired to all station actuators
+                                     (safety interlock, independent of PLC)
+
+Pneumatic supply (if applicable):
+  Main air supply --> [Filter/Regulator/Lubricator] --> Station solenoid
+  valves --> Station cylinders/actuators
+```
+
+### I/O List (per station, representative)
+| Signal | Type | From | To | Purpose |
+|---|---|---|---|---|
+| Step Command | Digital Out | PLC | Station actuator | Advances sequence step |
+| Part Present Sensor | Digital In | Station | PLC | Confirms step completion |
+| Fault Sensor | Digital In | Station | PLC | Detects jam/fault condition |
+| E-Stop | Hardwired | Safety circuit | All stations | Safety interlock |
+
+## 4. Mechanical Schematic — Station Layout
+```
+[Infeed] --> [Station 1: Load] --> [Station 2: Pack] --> [Station 3: Seal] --> [Outfeed]
+
+Foundation: individual station base frames, leveled and anchored
+Alignment: transfer points between stations aligned to product handoff
+tolerance (per `mechanical-installation-procedure.md`)
+Guarding: perimeter guarding with interlocked access points at each station
+```
+
+## 5. System Constants & Parameters
+| Parameter | Value/Range | Notes |
+|---|---|---|
+| Control voltage | 24VDC | PLC/sensor/actuator standard |
+| Pneumatic supply pressure | 80-100 psi (typical) | Per actuator manufacturer spec |
+| Station cycle time | Application-dependent | Balanced across stations to avoid bottlenecks |
+| Sensor response time | <20 ms typical | Ensures reliable step confirmation |
+| E-Stop response | Hardwired, <10 ms | Independent of PLC scan cycle |
+| Alignment tolerance (transfer points) | Per equipment spec, typically <1-2 mm | Prevents jams at handoff |
+
+## 6. Alignment with Industry Expectations (JBS & similar plants)
+- **Blueprint-driven installation**: layout and I/O documented before
+  installation, matching "read blueprints, diagrams and schematic drawings
+  to determine work procedures"
+- **Staged commissioning**: mechanical verification before electrical
+  energization, reducing risk of equipment damage
+- **Safety-first interlocks**: E-stop hardwired independently across all
+  stations, appropriate for food-processing environments with moving
+  machinery
+- **Sequenced fault handling**: GRAFCET-based logic prevents cascading
+  faults across stations, minimizing downtime and product loss
+
+## 7. Related documents in this repo
+- `mechanical-installation-procedure.md` — installation/alignment procedure
+- `grafcet-sequence-logic.md` — sequential control logic and interlocks
