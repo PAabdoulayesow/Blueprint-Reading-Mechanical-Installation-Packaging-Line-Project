@@ -1,0 +1,37 @@
+# GRAFCET Sequence Logic — Multi-Station Packaging Line
+
+## Purpose
+GRAFCET (sequential function chart) defines how each station in the
+packaging line operates in sequence, with interlocks ensuring one station
+doesn't proceed until the prior station's step is confirmed complete —
+critical for both correct operation and equipment protection.
+
+## Simplified sequence overview
+```mermaid
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Station1_Load: Start command + parts present
+    Station1_Load --> Station1_Process: Load confirmed
+    Station1_Process --> Station2_Transfer: Process complete
+    Station2_Transfer --> Station2_Pack: Transfer confirmed
+    Station2_Pack --> Station3_Seal: Pack complete
+    Station3_Seal --> Idle: Seal complete, cycle done
+    Station1_Process --> Fault: Fault detected
+    Station2_Pack --> Fault: Fault detected
+    Fault --> Idle: Fault cleared + reset
+```
+
+## Key interlock principles
+- Each station step requires confirmation (sensor feedback) before the next
+  step is enabled — prevents equipment collision or double-processing
+- A fault at any station halts the sequence and holds state, rather than
+  continuing blindly — protects both product and equipment
+- Manual reset required after fault clearance, consistent with the
+  fault-handling approach used in the automation project's PLC logic
+
+## Why GRAFCET matters for maintenance/installation roles
+Even without programming a PLC from scratch, being able to **read** a
+GRAFCET or sequence chart is what lets a technician quickly understand where
+in a multi-station process a fault occurred, and whether a stoppage is a
+mechanical, electrical, or sequencing issue — directly relevant to
+troubleshooting "programmable logic controls" on an installed line.
