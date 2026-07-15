@@ -1,0 +1,54 @@
+# Mechanical Installation Procedure — Packaging Line
+
+## Objective
+Document the process of installing and aligning stationary mechanical
+equipment on a multi-station packaging line, starting from blueprint
+interpretation through to commissioning-ready alignment.
+
+## 1. Blueprint reading approach
+- Identify station layout drawing: equipment footprint, orientation, and
+  clearances between stations
+- Cross-reference mechanical drawing with the electrical/control drawing to
+  confirm conduit runs, sensor locations, and access panels don't conflict
+  with structural elements
+- Note foundation/anchor bolt pattern and load requirements per equipment
+  datasheet
+
+## 2. Foundation & mounting
+- Confirm foundation load rating supports equipment weight + dynamic load
+  (vibration from motors/conveyors)
+- Anchor bolt layout per manufacturer template; verify level before final
+  torque
+- Vibration isolation (pads/mounts) where specified, particularly near
+  rotating equipment
+
+## 3. Equipment installation sequence
+1. Position and level base frame using shims as needed
+2. Install stationary components (frame, guarding structure) per blueprint
+   dimensions
+3. Mount rotating equipment (motors, gearboxes, conveyors) per manufacturer
+   torque specs
+4. Align couplings/shafts (dial indicator or laser alignment method) within
+   manufacturer tolerance
+5. Install guarding and safety interlocks last, after mechanical
+   verification but before electrical energization
+
+## 4. Alignment verification
+| Check | Method | Acceptable Tolerance (typical) |
+|---|---|---|
+| Coupling alignment | Dial indicator / laser alignment | Per coupling manufacturer spec (often <0.005") |
+| Level | Precision level | <0.5 mm/m |
+| Belt/chain tension | Tension gauge | Per manufacturer spec |
+| Anchor bolt torque | Torque wrench | Per bolt grade specification |
+
+## 5. Handoff to controls/electrical
+Once mechanically verified and aligned, station is handed off for
+electrical/control commissioning (see `technical-specification.md` and
+`grafcet-sequence-logic.md`) — mechanical installation must be fully
+verified before energizing to avoid damage from misalignment under load.
+
+## Why this matters for a Millwright role
+This sequence — blueprint reading, foundation/mounting, precise alignment,
+staged handoff to controls — mirrors exactly what's expected when installing
+stationary industrial machinery: "Install, align, dismantle and move
+stationary industrial machinery... according to layout plans."
