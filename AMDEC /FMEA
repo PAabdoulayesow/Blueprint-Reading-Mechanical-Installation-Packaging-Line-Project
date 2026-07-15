@@ -1,0 +1,41 @@
+# AM FMEA — Failure Mode, Effects & Criticality Analysis
+## Multi-Station Packaging Line
+
+## Purpose
+FMEA identifies potential
+failure modes for each station, their effects, and their criticality, to
+prioritize preventive maintenance and design improvements before failures
+occur in production.
+
+## Criticality scoring method
+Criticality (C) = Severity (S) × Occurrence (O) × Detection (D), each scored
+1-5 (5 = worst). Higher C score = higher priority for preventive action.
+
+## FMEA table — representative stations
+| Station | Failure Mode | Effect | S | O | D | C (S×O×D) | Recommended Action |
+|---|---|---|---|---|---|---|---|
+| Station 1 (Load) | Sensor misalignment | Missed part detection, jam | 3 | 3 | 2 | 18 | Include sensor alignment in weekly PM check |
+| Station 1 (Load) | Actuator wear (pneumatic cylinder) | Slow/failed cycle, line stoppage | 4 | 2 | 3 | 24 | Add cylinder inspection to PM schedule; monitor cycle time trend |
+| Station 2 (Pack) | Transfer misalignment (coupling wear) | Product damage, jam | 4 | 3 | 2 | 24 | Periodic alignment check per `mechanical-installation-procedure.md` tolerances |
+| Station 2 (Pack) | Drive motor overload | Unplanned stoppage | 4 | 2 | 2 | 16 | Monitor amperage trend via VFD; verify load hasn't increased over time |
+| Station 3 (Seal) | Seal head temperature drift | Poor seal quality (product/food-safety risk) | 5 | 3 | 3 | 45 | Highest priority: add temperature verification to PM; consider automated monitoring |
+| Station 3 (Seal) | Fault sensor failure (no fault indication) | Undetected fault propagates downstream | 4 | 2 | 4 | 32 | Periodic sensor function test, not just visual inspection |
+
+## How this drives the maintenance program
+The highest-criticality items (Station 3 seal temperature, Station 2
+transfer alignment) should be prioritized in the PM schedule ahead of
+lower-criticality items — this is the link between AMDEC analysis and the
+PM frequency decisions in `PM-schedule-template.md`
+(`preventive-corrective-maintenance-program` repo).
+
+## Link CMMS
+In prthese FMEA priorities would be reflected as PM task frequency
+and priority flags inside the CMMS (see `gmao-cmms-implementation.md` in the
+`automation-plc-motor-control` repo) — high-criticality items get shorter PM
+intervals and are flagged for immediate work order generation on any
+anomaly, rather than waiting for the next scheduled round.
+
+## Skills demonstrated
+- Failure Mode, Effects & Criticality Analysis (AMDEC/FMEA)
+- Risk-based prioritization of maintenance activities
+- Linking reliability analysis to practical PM scheduling and CMMS priority
